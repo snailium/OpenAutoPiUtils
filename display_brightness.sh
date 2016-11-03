@@ -20,7 +20,7 @@ do
     elif [[ $BRIGHT -ge 255 ]]; then
       BRIGHT=255
     fi
-    echo "Arduino reading is $LIGHT, set display brightness to $BRIGHT"
+#    echo "Arduino reading is $LIGHT, set display brightness to $BRIGHT"
     echo $BRIGHT > /sys/class/backlight/rpi_backlight/brightness
   fi
 done
