@@ -7,6 +7,10 @@ My goal is to improve my Raspberry Pi headunit. Here are scripts and tweaks I us
 + **Arduino board**: I'm using a third-party Arduino Uno compatible board.
 + **Photoresistor**: I'm using [SeeedStudio expension board + photoresistor](https://www.seeedstudio.com/Grove-Starter-Kit-for-Arduino-p-1855.html), connected to A0.
 
+### Arduino vs GrovePi+
+
+SeeedStudio also provides an option to expend analog ports - [GrovePi+](https://www.seeedstudio.com/GrovePi%2B-p-2241.html). Basically, it is an Arduino board sitting on top of Raspberry Pi, and requires Arduino IDE installed. Personally, I have no luck with installing Java SDK (which is one of Arduino IDE's dependencies) on Crankshaft image. But if it works, GrovePi+ may be a better choice since its much smaller than an Arduino board plus shield.
+
 ## Utilities
 
 ### Automatically adjust screen brightness
