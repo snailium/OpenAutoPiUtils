@@ -18,21 +18,19 @@ export DEBIAN_FRONTEND=noninteractive
 BUILD_TIME=`stat -c %Y /boot/kernel.img`
 case $BUILD_TIME in
   1523086824)
-    echo "Detect Crankshaft image 2018-04-07, disabling auto-shutdown"
+    echo "Detect Crankshaft image 2018-04-07, disabling auto-shutdown..."
     shutdown -c
     ;;
 esac
 
-echo "Installing packages"
+echo "Installing packages..."
 apt-get update -y
 apt-get install -y ntp git perl
 
-echo "Setup NTP time sync"
+echo "Setup NTP time sync..."
 systemctl enable ntp
 timedatectl set-ntp 1
 
 echo "Cloning Open Auto Pi Utilities repository..."
 cd $HOME
-ssh-keyscan >> ~/.ssh/known_hosts
-git clone git@github.com:snailium/OpenAutoPiUtils.git
-
+git clone https://github.com/snailium/OpenAutoPiUtils.git
