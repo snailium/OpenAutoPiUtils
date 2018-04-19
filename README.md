@@ -21,7 +21,14 @@ In this setup, Arduino takes light reading, and output the value to Raspberry Pi
 
 ## How to Use
 
-Currently, I'm waiting for Huan to provide a generic place to put startup script. I'll update this section later.
+_Currently, I'm waiting for Huan to provide a generic place to put startup script. I'll update this section later._
+
+Login to Raspberry Pi, and run the following.
+
+```bash
+wget --no-check-certificate https://raw.githubusercontent.com/snailium/OpenAutoPiUtils/master/setup.sh
+sudo bash setup.sh
+```
 
 ### Arduino IDE or Visual Studio
 
