@@ -15,19 +15,43 @@ SeeedStudio also provides an option to expend analog ports - [GrovePi+](https://
 
 ### Automatically adjust screen brightness
 
-Driving with full screen brightness at night is annoying and distracting. So I need the screen brightness adjusted based on light readings. Unfortunately, Raspberry Pi doesn't have an ADC, so I cannot use a photoresistor directly. That's why I added the Arduino to this project - to use its ADC and other shields.
+Driving with full screen brightness at night is annoying and distracting. So I need the screen brightness adjusted based on light readings. Unfortunately, Raspberry Pi doesn't have an ADC, so a photoresistor cannot be used directly. That's why I added the Arduino to this project - to use its ADC and other shields.
 
 In this setup, Arduino takes light reading, and output the value to Raspberry Pi. And the Pi sets screen brightness based on the reading. I also added some intelligence into the Pi script. Make it wait for Arduino connected before each reading.
 
+_Status: NEED IMPROVEMENT_
+_Known issue: As brighness is brutally calculated from light readings, in some situation (e.g. passing a light pole during night), it will result unstable screen brightness (screen switch between bright and dimmed frequently). It is even more distracted than static bright screen!_
+
+### Dashcam
+
+Connect Raspberry Pi camera and insert a USB disk, it turns the Pi into a dashcam!
+
+Video is segmented every 5 minutes, and stored under the ```/``` (root directory) of the first detected USB storage device. No audio is captured for now. The oldest video will be deleted if disk is full.
+
+_Status: WORK IN PROGRESS_
+_Known issue: _
+
 ## How to Use
 
-_Currently, I'm waiting for Huan to provide a generic place to put startup script. I'll update this section later._
+_Since Crankshaft v0.2.3, a better startup point is provided. I'll update the setup script and this section to use the new startup point._
+
+First, compile ```Arduino/Arduino.ino``` and upload to Arduino board.
 
 Login to Raspberry Pi, and run the following.
 
 ```bash
 wget --no-check-certificate https://raw.githubusercontent.com/snailium/OpenAutoPiUtils/master/setup.sh
 sudo bash setup.sh
+sudo reboot
+```
+
+### Fix keyboard mapping (incorrect pipe key} on Raspberry Pi
+
+Run the following commands.
+
+```bash
+sudo raspi-config nonint do_change_locale en_US.UTF-8
+sudo raspi-config nonint do_configure_keyboard us
 ```
 
 ### Arduino IDE or Visual Studio
