@@ -54,8 +54,14 @@ echo "Cloning Open Auto Pi Utilities repository..."
 cd $HOME
 git clone https://github.com/snailium/OpenAutoPiUtils.git
 
+echo "Unlocking /boot to install scripts..."
+/opt/crankshaft/filesystem.sh unlock_boot
+
 echo "Enabling Raspberry Pi camera interface..."
 sudo raspi-config nonint do_camera 0
+
+echo "Resizing partitions on SD card..."
+raspi-config --expand-rootfs
 
 echo "Setup not finished yet..."
 
