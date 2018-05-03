@@ -15,7 +15,7 @@ fi
 
 export DEBIAN_FRONTEND=noninteractive
 
-INSTALL_PKGS="ntp git perl debhelper gpac"
+INSTALL_PKGS="ntp i2c-tools git perl debhelper gpac"
 
 BUILD_TIME=`stat -c %Y /boot/kernel.img`
 # Crankshaft build time database
@@ -54,11 +54,11 @@ echo "Cloning Open Auto Pi Utilities repository..."
 cd $HOME
 git clone https://github.com/snailium/OpenAutoPiUtils.git
 
-echo "Unlocking /boot to install scripts..."
-/opt/crankshaft/filesystem.sh unlock_boot
+echo "Enabling Raspberry Pi I2C interface..."
+raspi-config nonint do_i2c 0
 
 echo "Enabling Raspberry Pi camera interface..."
-sudo raspi-config nonint do_camera 0
+raspi-config nonint do_camera 0
 
 echo "Resizing partitions on SD card..."
 raspi-config --expand-rootfs
