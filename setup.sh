@@ -15,7 +15,7 @@ fi
 
 export DEBIAN_FRONTEND=noninteractive
 
-INSTALL_PKGS="ntp i2c-tools git perl debhelper gpac"
+INSTALL_PKGS="ntp git i2c-tools perl bc debhelper gpac"
 
 BUILD_TIME=`stat -c %Y /boot/kernel.img`
 # Crankshaft build time database
