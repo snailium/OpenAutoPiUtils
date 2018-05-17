@@ -61,12 +61,12 @@ while [ : ]; do
     LUX=$((16#${LUX_HEX}))
 
     # Calculate brightness - starting from 15 to 255, in step of 10 (25 steps)
-    LIGHT=$(echo "sqrt ( $LUX )" | bc)
-    BRIGHT=$((LIGHT/4*10+15))
+    LIGHT=$(echo "l( $LUX ) / l( 2 )" | bc -l)
+    BRIGHT=$(echo "$LIGHT/1*25" | bc)
     if [[ $BRIGHT -ge 255 ]]; then
       BRIGHT=255
     fi
-#    echo "BH1750FVI reading is $LIGHT, set display brightness to $BRIGHT"
+#    echo "BH1750FVI reading is $LIGHT (raw: $LUX), set display brightness to $BRIGHT"
     echo $BRIGHT > /sys/class/backlight/rpi_backlight/brightness
   fi
 
