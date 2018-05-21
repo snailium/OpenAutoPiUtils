@@ -4,6 +4,10 @@ set -e
 SCRIPT_DIR=$(dirname $(readlink -f "$0"))
 SCRIPT_NAME=$(basename "$0")
 
+UTIL_PROJ=OpenAutoPiUtils
+UTIL_REPO=https://github.com/snailium/${UTIL_PROJ}.git
+UTIL_ROOT=/home/pi/${UTIL_PROJ}
+
 # Must be run as root
 if [[ `whoami` != "root" ]]
 then
@@ -42,7 +46,7 @@ if [[ $INSTALL_PKGS == *"ntp "* ]]; then
   timedatectl set-ntp 1
 fi
 
-echo "Getting and Building USBmount..."
+echo "Fetching, Building and Installing USBmount..."
 cd $HOME
 git clone https://github.com/rbrito/usbmount.git
 cd usbmount
@@ -52,7 +56,15 @@ apt install -y ../usbmount_*.deb
 
 echo "Cloning Open Auto Pi Utilities repository..."
 cd $HOME
-git clone https://github.com/snailium/OpenAutoPiUtils.git
+sudo -H -u pi git clone ${UTIL_REPO} ${UTIL_ROOT}
+
+echo "Enabling Open Auto Pi Utilities repository..."
+if [ ${BUILD_TIME} -ge 1524089656 ]; then
+  # For Crankshaft v0.2.3 and later, install scripts into /boot/crankshaft/startup.sh
+  STARTUP_SCRIPT=/boot/crankshaft/startup.sh
+  /opt/crankshaft/filesystem.sh unlock_boot
+  echo "${UTIL_ROOT}/brightness.sh &" | tee -a ${STARTUP_SCRIPT}
+fi
 
 echo "Enabling Raspberry Pi I2C interface..."
 raspi-config nonint do_i2c 0
