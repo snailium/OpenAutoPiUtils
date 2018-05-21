@@ -42,9 +42,14 @@ echo "Waited 30s, now BT_PHONE=${BT_PHONE}" | tee -a ${DEBUG_FILE}
 
 systemctl status bluetooth | tee -a ${DEBUG_FILE}
 
-echo "Chech ofono status" | tee -a ${DEBUG_FILE}
+echo "Check ofono status" | tee -a ${DEBUG_FILE}
 
 systemctl status ofono | tee -a ${DEBUG_FILE}
+
+if ! pgrep pulseaudio >/dev/null; then
+    sudo -H -u pi pulseaudio --start
+fi
+
 
 $SUDO bluetoothctl << EOF
 power on
